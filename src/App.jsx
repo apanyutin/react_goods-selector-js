@@ -33,30 +33,45 @@ const Header = ({ good, setSelectedGood }) =>
 const Table = ({ selectedGood, setSelectedGood }) => (
   <table className="table">
     <tbody>
-      {goods.map(good => (
-        <tr
-          data-cy="Good"
-          className={
-            selectedGood === good ? 'has-background-success-light' : ''
-          }
-          key={good}
-        >
-          <td>
-            <button
-              data-cy={selectedGood === good ? 'RemoveButton' : 'AddButton'}
-              type="button"
-              className={selectedGood === good ? 'button is-info' : 'button'}
-              onClick={() => setSelectedGood(selectedGood === good ? '' : good)}
-            >
-              {selectedGood === good ? '-' : '+'}
-            </button>
-          </td>
+      {goods.map(good => {
+        const isGoodSelected = selectedGood === good;
 
-          <td data-cy="GoodTitle" className="is-vcentered">
-            {good}
-          </td>
-        </tr>
-      ))}
+        return (
+          <tr
+            data-cy="Good"
+            className={isGoodSelected ? 'has-background-success-light' : ''}
+            key={good}
+          >
+            <td>
+              {isGoodSelected && (
+                <button
+                  data-cy="RemoveButton"
+                  type="button"
+                  className="button is-info"
+                  onClick={() => setSelectedGood('')}
+                >
+                  -
+                </button>
+              )}
+
+              {!isGoodSelected && (
+                <button
+                  data-cy="AddButton"
+                  type="button"
+                  className="button"
+                  onClick={() => setSelectedGood(good)}
+                >
+                  +
+                </button>
+              )}
+            </td>
+
+            <td data-cy="GoodTitle" className="is-vcentered">
+              {good}
+            </td>
+          </tr>
+        );
+      })}
     </tbody>
   </table>
 );
