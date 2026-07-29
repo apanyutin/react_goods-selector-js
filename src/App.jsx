@@ -35,7 +35,7 @@ export const App = () => {
           No goods selected
         </h1>
       )}
-      ;
+
       <table className="table">
         <tbody>
           {goods.map(good => {
